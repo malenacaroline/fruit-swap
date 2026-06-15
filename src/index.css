@@ -1,0 +1,325 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(150deg, #f0fdf4 0%, #dcfce7 60%, #bbf7d0 100%);
+  min-height: 100svh;
+}
+
+#root {
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* ── App shell ── */
+.app-wrapper {
+  width: 100%;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0;
+}
+
+.card {
+  background: white;
+  width: 100%;
+  min-height: 100svh;
+  padding: 28px 20px 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* On larger screens, show as a centered card */
+@media (min-width: 520px) {
+  .app-wrapper {
+    align-items: center;
+    padding: 32px 16px;
+  }
+
+  .card {
+    min-height: unset;
+    max-width: 460px;
+    border-radius: 24px;
+    box-shadow: 0 4px 40px rgba(0, 0, 0, 0.09);
+    padding: 36px 32px;
+  }
+}
+
+/* ── Header ── */
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  gap: 12px;
+}
+
+.header-icon {
+  font-size: 28px;
+  margin-bottom: 4px;
+  line-height: 1;
+}
+
+.header h1 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #14532d;
+  margin: 0;
+  letter-spacing: -0.4px;
+  line-height: 1.2;
+}
+
+.header p {
+  color: #6b7280;
+  font-size: 12px;
+  margin: 4px 0 0;
+  line-height: 1.4;
+}
+
+/* ── Lang toggle ── */
+.lang-toggle {
+  display: flex;
+  background: #f3f4f6;
+  border-radius: 20px;
+  padding: 3px;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.lang-btn {
+  padding: 5px 13px;
+  border-radius: 16px;
+  border: none;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  line-height: 1;
+}
+
+.lang-btn.active {
+  background: #16a34a;
+  color: white;
+}
+
+.lang-btn:not(.active) {
+  background: transparent;
+  color: #6b7280;
+}
+
+/* ── Field label ── */
+.field-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 6px;
+}
+
+/* ── Source row ── */
+.source-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+/* ── Fruit select ── */
+.fruit-select {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 32px 12px 12px;
+  border-radius: 12px;
+  border: 1.5px solid #d1fae5;
+  font-size: 16px; /* 16px prevents iOS zoom on focus */
+  color: #111827;
+  background: #f9fafb url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E") no-repeat right 12px center;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+}
+
+/* ── Gram input ── */
+.gram-wrap {
+  position: relative;
+  width: 88px;
+  flex-shrink: 0;
+}
+
+.gram-input {
+  width: 100%;
+  padding: 12px 22px 12px 10px;
+  border-radius: 12px;
+  border: 1.5px solid #d1fae5;
+  font-size: 16px; /* 16px prevents iOS zoom */
+  color: #111827;
+  background: #f9fafb;
+  outline: none;
+}
+
+.gram-unit {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: #9ca3af;
+  pointer-events: none;
+}
+
+/* ── Cal note ── */
+.cal-note {
+  font-size: 11px;
+  color: #9ca3af;
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+.cal-note strong {
+  color: #16a34a;
+}
+
+/* ── Swap button ── */
+.swap-row {
+  display: flex;
+  justify-content: center;
+  margin: 12px 0 8px;
+}
+
+.swap-btn {
+  background: #f0fdf4;
+  border: 2px solid #bbf7d0;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #16a34a;
+  transition: background 0.15s;
+  /* larger tap target on mobile */
+  -webkit-tap-highlight-color: transparent;
+}
+
+.swap-btn:active {
+  background: #dcfce7;
+}
+
+@media (hover: hover) {
+  .swap-btn:hover {
+    background: #dcfce7;
+  }
+}
+
+/* ── Result card ── */
+.result-card {
+  margin-top: 24px;
+  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+  border: 2px solid #86efac;
+  border-radius: 18px;
+  padding: 20px 16px;
+  text-align: center;
+  flex: 1;
+}
+
+.result-label {
+  font-size: 11px;
+  color: #15803d;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.result-pills {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.result-arrow {
+  color: #9ca3af;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.result-kcal {
+  margin-top: 16px;
+  font-size: 13px;
+  color: #374151;
+}
+
+.result-kcal strong {
+  color: #15803d;
+}
+
+.result-pct {
+  color: #9ca3af;
+  margin-left: 6px;
+}
+
+/* ── Pill ── */
+.pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 14px;
+  padding: 12px 16px;
+  min-width: 90px;
+  flex: 1;
+  max-width: 140px;
+}
+
+.pill-default {
+  background: white;
+  border: 1.5px solid #d1fae5;
+}
+
+.pill-highlight {
+  background: #16a34a;
+  box-shadow: 0 4px 18px rgba(22, 163, 74, 0.28);
+}
+
+.pill-emoji {
+  font-size: 28px;
+}
+
+.pill-grams {
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 1.2;
+  margin-top: 4px;
+}
+
+.pill-default .pill-grams { color: #111827; }
+.pill-highlight .pill-grams { color: white; }
+
+.pill-name {
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+.pill-default .pill-name { color: #6b7280; }
+.pill-highlight .pill-name { color: #bbf7d0; }
+
+/* ── Footer note ── */
+.footer-note {
+  text-align: center;
+  font-size: 11px;
+  color: #d1d5db;
+  margin-top: 20px;
+  margin-bottom: 0;
+}
