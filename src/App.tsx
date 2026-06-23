@@ -72,7 +72,7 @@ interface Fruit { id: string; namePt: string; nameEn: string; emoji: string; kca
 const getFruit = (id: string): Fruit => FRUITS_PT.find((f) => f.id === id)!;
 
 export default function App() {
-  const [lang, setLang] = useState<Lang>("pt");
+  const [lang, setLang] = useState<Lang>("en");
   const [sourceId, setSourceId] = useState("banana");
   const [sourceGrams, setSourceGrams] = useState(100);
   const [targetId, setTargetId] = useState("morango");
@@ -150,7 +150,7 @@ export default function App() {
 function LangToggle({ lang, onChange }: { lang: Lang; onChange: (l: Lang) => void }) {
   return (
     <div className="lang-toggle">
-      {(["pt", "en"] as Lang[]).map(l => (
+      {(["en", "pt"] as Lang[]).map(l => (
         <button key={l} className={`lang-btn${lang === l ? " active" : ""}`} onClick={() => onChange(l)}>
           {l.toUpperCase()}
         </button>
@@ -174,12 +174,29 @@ function FruitSelect({ value, onChange, fruits, lang, exclude }: {
 }
 
 function GramInput({ value, onChange }: { value: number; onChange: (v: number) => void }) {
+  const [raw, setRaw] = useState(String(value));
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const str = e.target.value;
+    setRaw(str);
+    const n = Number(str);
+    if (str !== "" && !isNaN(n) && n >= 1) onChange(n);
+  };
+
+  const handleBlur = () => {
+    const n = Number(raw);
+    const clamped = !raw || isNaN(n) || n < 1 ? 1 : n;
+    onChange(clamped);
+    setRaw(String(clamped));
+  };
+
   return (
     <div className="gram-wrap">
       <input
         className="gram-input"
-        type="number" min={1} max={9999} value={value}
-        onChange={e => onChange(Math.max(1, Number(e.target.value)))}
+        type="number" value={raw}
+        onChange={handleChange}
+        onBlur={handleBlur}
       />
       <span className="gram-unit">g</span>
     </div>
